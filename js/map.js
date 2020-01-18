@@ -6,7 +6,7 @@ let mapCardTemplate = d.querySelector('template').content.querySelector('.map__c
 let mapPinsList = d.querySelector('.map__pins'); // список всех пинов
 let mapPinTemplate = d.querySelector('template').content.querySelector('.map__pin'); // шаблон пина
 let map = d.querySelector('.map');
-
+let form = d.querySelector(".notice__form");
 
 // *****вспомогательные функции
 
@@ -261,8 +261,125 @@ function onPinClick(evt) {
 
 // 
 
-
 function cardRemove() {
   d.querySelector('.map__card').remove()
 }
+let inputs = d.querySelectorAll('input');
+
+
+
+function CustomValidation() { }
+
+CustomValidation.prototype = {
+  // Установим пустой массив сообщений об ошибках
+   invalidities: [],
+
+  // Метод, проверяющий валидность
+  checkValidity: function(input) {
+
+    let validity = input.validity;
+
+    if (validity.patternMismatch) {
+      this.addInvalidity('This is the wrong pattern for this field');
+    }
+
+    if (validity.rangeOverflow) {
+      let max = input.getAttribute('max');
+      this.addInvalidity('The maximum value should be ' + max);
+    }
+
+    if (validity.rangeUnderflow) {
+      let min = input.getAttribute('min');
+      this.addInvalidity('The minimum value should be ' + min);
+    }
+
+    if (validity.stepMismatch) {
+      let step = input.getAttribute('step');
+      this.addInvalidity('This number needs to be a multiple of ' + step);
+    }
+
+    if (validity.tooLong) {
+      let maxlength = input.getAttribute('maxlength');
+      this.addInvalidity('This field needs to be shorter then ' + maxlength);
+    }
+
+    if (validity.tooShort) {
+      let minlength = input.getAttribute('minlength');
+      this.addInvalidity('This field needs to be longer then ' + minlength);
+    }
+
+    if (validity.typeMismatch) {
+      this.addInvalidity('This is the wrong type for this field ');
+    }
+
+    if (validity.valueMissing) {
+      this.addInvalidity('This field is required');
+    }
+
+  },
+
+  // Добавляем сообщение об ошибке в массив ошибок
+
+
+  addInvalidity: function(message) {
+    this.invalidities.push(message);
+  },
+
+
+  // Получаем общий текст сообщений об ошибках
+  getInvalidities: function() {
+    return this.invalidities.join('. \n');
+  },
+
+  getInvaliditiesForHTML:  function() {
+    return this.invalidities.join('. <br>');
+  }
+};
+
+function onInputClick(e) {
+  let input = e.target.closest('input');
+  let select = e.target.closest('select');
+  if (!input &&  !select && !form.contains(input) &&  !form.contains(select)){
+    return;
+  }
+  removeToltips();
+}
+
+let removeToltips = function(){
+  let toltips = d.querySelectorAll('.error-message');
+  toltips.forEach(item => item.remove());
+};
+
+let renderToltips = function(e){
+
+  for (let input of inputs) {
+    // Проверим валидность поля, используя встроенную в JavaScript функцию checkValidity()
+    if (input.checkValidity() === false) {
+
+      let inputCustomValidation = new CustomValidation(); // Создадим объект CustomValidation
+      inputCustomValidation.invalidities.length = 0;// Предотвратим накапливание сообщений
+      inputCustomValidation.checkValidity(input); // Выявим ошибки
+      let customValidityMessage = inputCustomValidation.getInvalidities(); // Получим все сообщения об ошибках
+      input.setCustomValidity(customValidityMessage); // Установим специальное сообщение об ошибке
+
+      // Добавим ошибки в документ
+      let customValidityMessageForHTML = inputCustomValidation.getInvaliditiesForHTML();
+      input.insertAdjacentHTML('afterend', '<div class="error-message">' + customValidityMessageForHTML + '</div>');
+      e.preventDefault();
+
+      setTimeout(removeToltips, 11000)
+    } // закончился if
+  } // закончился цик
+};
+
+// Добавляем обработчик клика на кнопку отправки формы
+d.querySelector(".form__submit").addEventListener('click', renderToltips);
+
+form.addEventListener('click', onInputClick);
+form.addEventListener('keydown', function (e) {
+  if ( e.code === 'Enter'){
+      onInputClick();
+  }
+});
+
 

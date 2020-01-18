@@ -84,13 +84,20 @@ textarea:focus {
   box-shadow: 0 0 4px 1px #ff6547;
 }
 
+input:valid {
+  border-color: green;
+}
+
+input:invalid {
+  border-color: red;
+}
+
 .hidden {
   display: none;
 }
 
 .visuallyhidden {
   position: absolute;
-
   width: 1px;
   height: 1px;
   margin: -1px;
@@ -699,4 +706,28 @@ textarea:focus {
 
 .footer-social-item-vk {
   background-position: -10px -10px;
+}
+
+.error-message{
+  margin-top: 10px;
+  position: absolute;
+  padding: 5px;
+  border: 1px solid #d5635a;
+  background-color: #F0F0EA;
+
+}
+
+.error-message:after{
+  position: absolute;
+  content: "";
+  top: -12px;
+  left: 5px;
+  width: 0;
+  height: 0;
+
+  border: solid 5px transparent;
+  border-top: solid 11px #d5635a;
+  border-bottom: 0;
+  transform: rotate(180deg);
+
 }
