@@ -8,12 +8,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="cat" />
     <orderEntry type="module" module-name="js-test" />
     <orderEntry type="module" module-name="Код и магия" />
     <orderEntry type="module" module-name="js-test" />
     <orderEntry type="module" module-name="Код и магия" />
-    <orderEntry type="module" module-name="source" />
     <orderEntry type="module" module-name="Portfolio" />
   </component>
 </module>

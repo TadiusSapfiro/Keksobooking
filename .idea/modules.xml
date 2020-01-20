@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../Portfolio/.idea/Portfolio.iml" filepath="$PROJECT_DIR$/../../Portfolio/.idea/Portfolio.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../pilates/cat/.idea/cat.iml" filepath="$PROJECT_DIR$/../pilates/cat/.idea/cat.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../js-test/.idea/js-test.iml" filepath="$PROJECT_DIR$/../../js-test/.idea/js-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TadiusSapfiro/source/.idea/source.iml" filepath="$PROJECT_DIR$/../TadiusSapfiro/source/.idea/source.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Кексобукинг.iml" filepath="$PROJECT_DIR$/.idea/Кексобукинг.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../Проекты/Код и магия/.idea/Код и магия.iml" filepath="$PROJECT_DIR$/../../Проекты/Код и магия/.idea/Код и магия.iml" />
     </modules>
