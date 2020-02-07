@@ -383,3 +383,48 @@ form.addEventListener('keydown', function (e) {
 });
 
 
+mainPin.addEventListener('mousedown', dragAndDrop);
+
+
+function dragAndDrop(event) {
+  event.preventDefault(); // предотвратить запуск выделения (действие браузера)
+  let shiftX = event.clientX - mainPin.getBoundingClientRect().left;
+  let shiftY = event.clientY - mainPin.getBoundingClientRect().top;
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
+  function onMouseMove(moveE) {
+    moveE.preventDefault();
+    let newLeft = moveE.clientX - shiftX -  mainPin.offsetWidth*2;
+    let newTop = moveE.clientY - shiftY + mainPin.offsetHeight/2;
+    // курсор вышел из слайдера => оставить бегунок в его границах.
+    if (newLeft < mainPin.offsetWidth/2) {
+      newLeft = mainPin.offsetWidth/2;
+    }
+    let rightEdge = map.clientWidth - mainPin.offsetWidth/2 ;
+    if (newLeft > rightEdge) {
+      newLeft = rightEdge;
+    }
+
+    // if (newTop < 0) {
+    //   newTop = 0;
+    // }
+    // let topEdge = document.documentElement.clientHeight - mainPin.offsetHeight ;
+    // if (newTop > topEdge) {
+    //   newTop = topEdge0=-;
+    // }
+
+    mainPin.style.left = newLeft + 'px';
+    mainPin.style.top = newTop + 'px';
+  }
+
+  function onMouseUp(upE) {
+    upE.preventDefault();
+    onPinMove();
+    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMouseMove);
+  }
+
+}
+
